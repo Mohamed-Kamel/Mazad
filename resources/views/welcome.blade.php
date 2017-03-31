@@ -6,18 +6,50 @@
 
 <h1 style="text-align: center;">MAZAD</h1>
 
-<form action="/search" class="col-md-8 col-md-offset-2">
+<div class="col-md-8 col-md-offset-2">
+    <form action="/search">
 
-    <div class="form-group">
-        <div class="col-md-7">
-            <input class="form-control" placeholder="Search by name" type="text" name="search" id="search">
+        <div class="form-group">
+            <div class="col-md-7">
+                <input class="form-control" placeholder="Search by name" type="text" name="search" id="search">
+            </div>
+            
+            <button class="btn btn-default col-md-2" name="search">Search</button>
         </div>
-        
-        <button class="btn btn-default col-md-2" name="search">Search</button>
-    </div>
 
-</form>
-
-table>thead>tr>(th*6)&tbody>(tr>(td*6)*6)
-
+    </form>
+<br>
+<br>
+    <table class="table table-striped">
+        <tbody>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Highest Bid</th>
+                    <th>No of Bid</th>
+                    <th>Owner</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>IPhone</td>
+                <td>350$</td>
+                <td>400$</td>
+                <td>9</td>
+                <td>Amr</td>
+                <td>Here</td>
+            </tr>
+            <tr>
+                <td>Car</td>
+                <td>200$</td>
+                <td>300$</td>
+                <td>5</td>
+                <td>omnea</td>
+                <td>here</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 @stop
