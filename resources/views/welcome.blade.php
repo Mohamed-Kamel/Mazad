@@ -2,8 +2,6 @@
 
 
 @section('content')
-
-
 <h1 style="text-align: center;">MAZAD</h1>
 
 <form action="/search" class="col-md-8 col-md-offset-2">
@@ -17,7 +15,4 @@
     </div>
 
 </form>
-
-table>thead>tr>(th*6)&tbody>(tr>(td*6)*6)
-
-@stop
+@endsection
