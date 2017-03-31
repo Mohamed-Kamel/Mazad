@@ -16,6 +16,7 @@
             
             <button class="btn btn-default col-md-2" name="search">Search</button>
         </div>
+<<<<<<< HEAD
 
     </form>
 <br>
@@ -52,4 +53,7 @@
         </tbody>
     </table>
 </div>
-@stop
+
+
+@endsection
+
