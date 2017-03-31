@@ -18,6 +18,6 @@
 
 </form>
 
-table>thead>tr>(th*6)&tbody>(tr>(td*6)*6)
 
-@stop
+
+@endsection
