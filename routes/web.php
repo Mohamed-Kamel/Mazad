@@ -11,10 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+Route::get("/test", function(){
+	return view("master");
+});
+
+Route::resource("/products", "ProductsController");
+
