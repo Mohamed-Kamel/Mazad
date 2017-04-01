@@ -2,8 +2,6 @@
 
 
 @section('content')
-
-
 <h1 style="text-align: center;">MAZAD</h1>
 
 <div class="col-md-8 col-md-offset-2">
@@ -16,8 +14,6 @@
             
             <button class="btn btn-default col-md-2" name="search">Search</button>
         </div>
-
-
     </form>
 <br>
 <br>
