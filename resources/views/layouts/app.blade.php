@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    @yield('styles')
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -83,5 +84,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+     @yield('scripts')
 </body>
 </html>
