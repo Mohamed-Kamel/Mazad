@@ -12,8 +12,22 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"> -->
+
+    <style>
+        body {
+            font-family: lora;
+        }
+        .navbar {
+            margin-bottom: 0;
+        }
+
+    </style>
+    @yield('styles')
+
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}">
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -76,6 +90,7 @@
                                 </li>
                             </ul>
                         </li>
+
                     @endif
                 </ul>
             </div>
@@ -84,11 +99,16 @@
 
     @yield('content')
 
-</div>
+
+
+     </div>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
+@yield('scripts')
+
+
 </body>
 </html>
