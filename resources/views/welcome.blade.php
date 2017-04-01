@@ -160,6 +160,7 @@
 @section('content')
 
 
+
 <!-- home start -->
 <section id="slider">
 
@@ -169,6 +170,8 @@
 
 </section>
 <!-- home end -->
+
+
 
 
 <section id="items">
@@ -252,4 +255,5 @@
 		});
 	</script> -->
 @endsection
+
 
