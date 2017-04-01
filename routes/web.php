@@ -13,6 +13,8 @@
 
 //Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
+Route::get('/mail', 'MailController@html_email');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
