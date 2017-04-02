@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         // if the user is logged in show his products else show all products
-        $products = Product::all();
+        $products = Product::paginate(5);
         return view('welcome', ["products" => $products]);
     }
 
@@ -34,7 +34,7 @@ class ProductController extends Controller
     {
 
         $name = $request->name;
-        $products = Product::where("name", 'LIKE', '%' . $name . '%')->get();
+        $products = Product::where("name", 'LIKE', '%' . $name . '%')->paginate(5);
 
         for ($i = 0; $i < count($products); $i++) {
             $products[$i]->owner = $products[$i]->user->name;

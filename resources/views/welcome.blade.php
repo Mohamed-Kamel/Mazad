@@ -93,6 +93,9 @@
                         </div>
                     @endforeach
                 </div>
+            </div>
+        </div>
+        {{$products->links()}}
     </section>
 
 
