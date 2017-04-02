@@ -13,30 +13,30 @@
 */
 
 
-
-
-Route::delete('/delete/{id}',"ProductController@delete");
-Route::get('/myitem',"ProductController@display");
-
-Route::get('/', 'ProductController@index');
-Route::get('/search', 'ProductController@search');
-
-Route::get('/editprof/{id}',"HomeController@update");
-Route::post('/editprof/{id}',"HomeController@donee");
-
-
 Auth::routes();
 
+Route::get('/', 'ProductController@index');
+
+Route::get('/search', 'ProductController@search');
 
 Route::get('/item/{id}', 'ProductController@showDetails');
 
 Route::post('/item/{id}', 'ProductController@updateBid');
 
-Route::get('/item/{id}/edit', 'ProductController@showEdit');
-
-Route::post('/item/{id}/edit', 'ProductController@editProduct');
-
 Route::group(["middleware" => "auth"], function(){
+
+	Route::delete('/delete/{id}',"ProductController@delete");
+
+
+	Route::get('/myitem',"ProductController@display");
+
+	Route::get('/editprof/{id}',"HomeController@update");
+	Route::post('/editprof/{id}',"HomeController@donee");
+
+	Route::get('/item/{id}/edit', 'ProductController@showEdit');
+
+	Route::post('/item/{id}/edit', 'ProductController@editProduct');
+
 
     Route::resource("/products", "ProductController");
 
