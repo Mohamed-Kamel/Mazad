@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('styles')
-    <!-- <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}"> -->
+    {{-- <!-- <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}"> --> --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
@@ -117,8 +117,10 @@
 
 @section('scripts')
     <script>
-        var draw = function (data) {
 
+
+        var draw = function (data) {
+           
             var online = $("<div></div>").append($("<h5></h5>").text("Online")).append($("<h5></h5>").addClass("price-text-color").text(data.online));
             console.log(online);
             var bids = $("<div></div>").append($("<h5></h5>").text("No of Bids")).append($("<h5></h5>").addClass("price-text-color").text(data.no_of_bids));
@@ -126,12 +128,12 @@
             var initial = $("<div></div>").append($("<h5></h5>").text("Initial Price")).append($("<h5></h5>").addClass("price-text-color").text(data.price));
             var location = $("<div></div>").append($("<h5></h5>").text("Location")).append($("<h5></h5>").addClass("owner-name").text(data.location));
             var owner = $("<div></div>").append($("<h5></h5>").text("Owner").append($("<h5></h5>").addClass("owner-name").text(data.owner)));
-            var name = $("<h3></h3>").append($("<a></a>").attr("href", "#").text(data.name));
+            var name = $("<h3></h3>").append($("<a></a>").attr("href", "{{url('item')}}/{{$product->id}}").text(data.name));
             var price = $("<div></div>").addClass("price col-md-12").append(name).append(owner).append(location).append(initial).append(highest).append(bids).append(online);
             var row = $("<div></div>").addClass("row").append(price);
             var info = $("<div></div>").addClass("info").append(row);
             var img = $("<img></img>").addClass("img-responsive").attr("src", data.image);
-            var link = $("<a></a>").attr("href", "#").append(img);
+            var link = $("<a></a>").attr("href", "{{url('item')}}/{{$product->id}}").append(img);
             var wrapper = $("<div></div>").addClass("post-img-content").append(link);
             var item = $("<div></div>").addClass("col-item").append(wrapper).append(info);
             $("#searchContainer").append($("<div></div>").addClass("col-xs-12 col-sm-6 col-md-3").append(item));
@@ -143,11 +145,11 @@
             $key = $("#key").val();
 
             $.ajax({
-                url: "/search",
+                url: "{{url('/search')}}",
                 method: 'GET',
                 data: {'name': $key},
                 success: function (response) {
-                    console.log(response);
+                    response = response.data;
                     //foreach
                     $("#searchContainer").empty();
                     for (var i = 0; i < response.length; i++) {
@@ -158,7 +160,7 @@
                     //show no item
                     var container = $("#searchContainer");
                     container.empty();
-                    container.append($("<h1><h1>").text(error));
+                    container.html("<h1>"+error.responseText+"<h1>");
                     console.log(error);
                 }
             });
@@ -171,7 +173,7 @@
     </script>
 
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
-    <!-- <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script> -->
+    {{-- <!-- <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script> --> --}}
     <!-- <script>
         $('#bidModal').on('shown.bs.modal', function () {
               $('#bid').focus()

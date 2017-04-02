@@ -23,6 +23,8 @@ Route::get('/item/{id}', 'ProductController@showDetails');
 
 Route::post('/item/{id}', 'ProductController@updateBid');
 
+
+
 Route::group(["middleware" => "auth"], function(){
 
 	Route::delete('/delete/{id}',"ProductController@delete");
