@@ -13,6 +13,7 @@
 */
 
 
+
 Auth::routes();
 
 Route::get('/', 'ProductController@index');

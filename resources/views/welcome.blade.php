@@ -94,10 +94,12 @@
                             </div>
                         </div>
                     @endforeach
+                    {{$products->links()}}
                 </div>
             </div>
+        
         </div>
-        {{$products->links()}}
+        
     </section>
 
 
