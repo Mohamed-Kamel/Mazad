@@ -19,10 +19,10 @@
     <!-- home start -->
     <section id="slider">
 
-        <div class="data col-md-6 col-md-offset-3">
-            <h2> All you need in best price gnkjdjlcdbvk khfhkfjenrj kefhjefjkn eklfhejhfkdlkdjkf vkfhgjhnv kfhgjen lkgk
-                kfnb iknkf !</h2>
-        </div>
+        {{--<div class="data col-md-6 col-md-offset-3">--}}
+            {{--<h2> All you need in best price gnkjdjlcdbvk khfhkfjenrj kefhjefjkn eklfhejhfkdlkdjkf vkfhgjhnv kfhgjen lkgk--}}
+                {{--kfnb iknkf !</h2>--}}
+        {{--</div>--}}
 
     </section>
     <!-- home end -->
@@ -108,8 +108,6 @@
             <h4> All you need in best price gnkjdjlcdbvk khfhkfjenrj kefhjefjkn eklfhejhfkdlkdjkf vkfhgjhnv kfhgjen lkgk
                 kfnb iknkf !</h4>
         </div>
-
-
     </section>
 
 

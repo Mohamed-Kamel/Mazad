@@ -40,9 +40,8 @@
                 	
                     <form action="{{URL('delete')}}/{{$product->id}}" method="POST">
                         <!-- Edit -->
-                        <a href="#" class="btn btn-default" role="button">
+                        <a href="{{url('item')}}/{{$product->id}}/edit" class="btn btn-default" role="button">
                             <i class="glyphicon glyphicon-pencil"> </i>
-                                
                         </a>
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">

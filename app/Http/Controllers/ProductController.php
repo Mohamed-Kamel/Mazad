@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProduct;
+use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
 use App\Product;
 use App\User;
@@ -101,8 +102,6 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-        $user_id = Auth::id();
-
         if ($request->save === "save") {
             $product = new Product;
             $product->name = $request->name;
@@ -113,16 +112,13 @@ class ProductController extends Controller
             $product->online = $request->online ? "yes" : "no";
 
             if ($request->hasFile("image")) {
-
-//                $product->image = $request->file("image")->store("images");
                 $image_name = $request->file('image')->getClientOriginalName();
                 $image_ext = $request->file('image')->getClientOriginalExtension();
                 $image_path = 'images/' . sha1($image_name) . time() . '.' . $image_ext;
                 $product->image = $image_path;
                 $request->file("image")->move(public_path('images'), $image_path);
             }
-//            Auth::id()
-            $product->user_id = $user_id;
+            $product->user_id = Auth::id();
             $product->save();
             return redirect("/myitem");
         } elseif ($request->cancel === "cancel") {
@@ -132,15 +128,44 @@ class ProductController extends Controller
 
     private function send($productName, $highestSalary, $email)
     {
-//$title = $request->input('title');
-//$content = $request->input('content');
+
         Mail::send('Email', ['productName' => $productName, 'highestSalary' => $highestSalary], function ($message) use ($productName, $email) {
-// mazadcompany@gmail.com
-// 12345678?
+
             $message->from('mazadcompany@gmail.com', 'Mazad Company');
             $message->to($email)->subject('Updated Bid in Your ' . $productName);
         });
         return response()->json(['message' => 'Request completed']);
-//return view ("welcome");
     }
+
+    public function showEdit($id)
+    {
+        $product = Product::find($id);
+        return view('editProduct')->with('product', $product);
+    }
+
+
+    public function editProduct(UpdateProduct $request, $id)
+    {
+        if ($request->save === "save") {
+            $product = Product::find($id);
+            $product->name = $request->name;
+            $product->details = $request->details;
+            $product->price = (float)$request->price;
+            $product->online = $request->online ? "yes" : "no";
+            if ($request->hasFile("image")) {
+                File::delete(public_path().'/'.$product->image);
+                $image_name = $request->file('image')->getClientOriginalName();
+                $image_ext = $request->file('image')->getClientOriginalExtension();
+                $image_path = 'images/' . sha1($image_name) . time() . '.' . $image_ext;
+                $product->image = $image_path;
+                $request->file("image")->move(public_path('images'), $image_path);
+            }
+            $product->user_id = Auth::id();
+            $product->save();
+            return redirect("/myitem");
+        } elseif ($request->cancel === "cancel") {
+            return redirect("/myitem");
+        }
+    }
+
 }
