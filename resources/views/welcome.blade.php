@@ -84,7 +84,9 @@
                                     </div>
                                     <div class="separator clear-left">
                                         <p class="btn-add">
-                                            <i class="fa fa-bullhorn"></i><a type="button" name="bid">Bid</a></p>
+                                            <i class="fa fa-bullhorn"></i>
+                                            <a href="{{url('item')}}/{{$product->id}}" type="button" name="bid">Bid</a>
+                                        </p>
                                     </div>
                                     <div class="clearfix">
                                     </div>
