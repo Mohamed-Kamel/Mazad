@@ -2,15 +2,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Auth;
 use App\Product;
 use DB;
-
-
 use \App\User;
 
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -39,10 +35,12 @@ class HomeController extends Controller
 
     public function update($id){
         $user=User::find($id);
-        return view("/editprof",compact('user'));
-
+        return view("editprof",compact('user'));
     } 
-        public function donee($id ,Request $request){ 
+
+
+
+    public function donee($id ,Request $request){ 
         $user=User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;    

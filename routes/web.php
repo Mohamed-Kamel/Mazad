@@ -12,22 +12,23 @@
 |
 */
 
-
-
-
-Route::delete('/delete/{id}',"ProductController@delete");
-Route::get('/myitem',"ProductController@display");
-
+Auth::routes();
 
 
 Route::get('/', 'HomeController@index');
+
+Route::delete('/delete/{id}',"ProductController@delete");
+
+Route::get('/myitem',"ProductController@display");
+
+
 Route::get('/editprof/{id}',"HomeController@update");
 Route::post('/editprof/{id}',"HomeController@donee");
 
 
 Route::get('/mail', 'MailController@html_email');
 
-Auth::routes();
+
 // Route::get('/home', 'HomeController@index');
 
 Route::get('/item/{id}', 'ProductController@showDetails');
@@ -40,6 +41,3 @@ Route::group(["middleware" => "auth"], function(){
 	Route::resource("/products", "ProductController");
 
 });
-
-
-

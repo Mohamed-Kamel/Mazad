@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProduct;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Product;
+use App\User;
+use DB;
+
 
 class ProductController extends Controller
 {
+
+
     public function showDetails($id)
     {
       
@@ -43,8 +50,14 @@ class ProductController extends Controller
     public function display(){
 		$product = DB::table('products')->where('user_id', Auth::id())->get();
 
+        // $user = User::find(Auth::id());
+
+        // $product = $user->products->toArray();
+        // dd($product);
     	return view('myitem')->with('products', $product);
     } 
+
+
 
     public function delete($id){
        	$product=Product::find($id); 	
@@ -74,9 +87,9 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-        // @TODO : validate request
+        
 
-        //@TODO :Error with input
+        //@TODO : Error with input in validation
 
         $user_id = Auth::id();
 
@@ -94,16 +107,16 @@ class ProductController extends Controller
 //                $product->image = $request->file("image")->store("images");
                 $image_name = $request->file('image')->getClientOriginalName();
                 $image_ext = $request->file('image')->getClientOriginalExtension();
-                $image_path = 'images/' . sha1($image_name).time().'.'.$image_ext;
+                $image_path = 'images/' . bcrypt($image_name).time().'.'.$image_ext;
                 $product->image = $image_path;
                 $request->file("image")->move(public_path('images'), $image_path);
             }
 //            Auth::id()
             $product->user_id = $user_id;
             $product->save();
-            return redirect("/products");
+            return redirect("/myitem");
         } elseif ($request->cancel === "cancel") {
-            return redirect("/products");
+            return redirect("/myitem");
         }
     }
 

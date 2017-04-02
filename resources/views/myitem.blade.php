@@ -9,7 +9,7 @@
 </h1>
 <h4>
  My List Of Products ...
-<a href="#" class="btn btn-success btn-sm" style="margin:30px ;">Add One</a>
+<a href="{{url('products/create')}}" class="btn btn-success btn-sm" style="margin:30px ;">Add One</a>
  </h4>
  </div>
   <br>
@@ -25,7 +25,7 @@
                 <th>Online</th>
                 <th>Highest Bid</th>
                 <th>No.Of.Bids</th>
-                <th>Delete/Update</th>
+                <th>Manage</th>
             </tr>
         </thead>
         <tbody>
@@ -37,22 +37,23 @@
                 <td>{{$product->highest_price}}</td>
                 <td>{{$product->no_of_bids}}</td>        
                 <td>
-                	<p>
+                	
                     <form action="{{URL('delete')}}/{{$product->id}}" method="POST">
+                        <!-- Edit -->
+                        <a href="#" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-pencil"> </i>
+                                
+                        </a>
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">
-                        <button  class="btn btn-primary" role="button">
+                        <!-- Delete -->
+                        <button  class="btn btn-danger" role="button">
                              <i class="glyphicon glyphicon-trash"> </i>
-                        Delete
+                        
                         </button>
-                   
+                
                     </form>
-		        	
-		        	<a href="#" class="btn btn-default" role="button">
-		        	<i class="glyphicon glyphicon-pencil"> </i>
-		        		Edit
-		        	</a>
-		        	</p>
+                
                 </td>         
             </tr>
         @endforeach    

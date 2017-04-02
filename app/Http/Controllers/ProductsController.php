@@ -61,7 +61,7 @@ class ProductsController extends Controller
 //                $product->image = $request->file("image")->store("images");
                 $image_name = $request->file('image')->getClientOriginalName();
                 $image_ext = $request->file('image')->getClientOriginalExtension();
-                $image_path = 'images/' . sha1($image_name).time().'.'.$image_ext;
+                $image_path = 'images/' . bcrypt($image_name).time().'.'.$image_ext;
                 $product->image = $image_path;
                 $request->file("image")->move(public_path('images'), $image_path);
             }
