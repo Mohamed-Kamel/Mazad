@@ -63,7 +63,8 @@ class ProductController extends Controller
             $item->highest_price = $request->newPrice;
             $item->no_of_bids = ($item->no_of_bids) + 1;
             $item->save();
-            $this->send($item->name, $item->highest_price, $item->user->email);
+            // $this->send($item->name, $item->highest_price, $item->user->email);
+            $this->send($item, $item->user->email);
         }
         return back();
     }
@@ -126,13 +127,13 @@ class ProductController extends Controller
         }
     }
 
-    private function send($productName, $highestSalary, $email)
+    private function send($product, $email)
     {
 
-        Mail::send('Email', ['productName' => $productName, 'highestSalary' => $highestSalary], function ($message) use ($productName, $email) {
+        Mail::send(['html' => 'Email'], ['product' => $product], function ($message) use ($product, $email) {
 
             $message->from('mazadcompany@gmail.com', 'Mazad Company');
-            $message->to($email)->subject('Updated Bid in Your ' . $productName);
+            $message->to($email)->subject('Updated Bid in Your ' . $product->name);
         });
         return response()->json(['message' => 'Request completed']);
     }
