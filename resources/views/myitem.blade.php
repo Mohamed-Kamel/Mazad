@@ -30,11 +30,11 @@
         </thead>
         <tbody>
          @foreach($products as $product)
-            <tr>
-                <td>{{$product->name}}</td>
-                <td>{{$product->price}}</td>
+             <tr>
+                <td><a href="{{url('item')}}/{{$product->id}}">{{$product->name}}</a></td>
+                <td>{{$product->price}} $</td>
                 <td>{{$product->online}}</td>
-                <td>{{$product->highest_price}}</td>
+                <td>{{$product->highest_price}} $</td>
                 <td>{{$product->no_of_bids}}</td>        
                 <td>
                 	
