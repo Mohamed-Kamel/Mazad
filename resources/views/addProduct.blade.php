@@ -12,7 +12,7 @@
                 <label for="name" class="control-label col-md-1">Name</label>
 
                 <div class="col-md-11">
-                    <input placeholder="Product name" class="form-control" type="text" name="name" id="name">
+                    <input value="{{old('name')}}" placeholder="Product name" class="form-control" type="text" name="name" id="name">
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                 <label for="price" class="control-label col-md-1">Price</label>
 
                 <div class="col-md-11">
-                    <input placeholder="Product price" class="form-control" type="text" name="price" id="price">
+                    <input value="{{old('price')}}" placeholder="Product price" class="form-control" type="text" name="price" id="price">
                 </div>
             </div>
 

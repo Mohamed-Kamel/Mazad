@@ -35,10 +35,8 @@
 					</div>
 
 					   <div class="col-xs-3" padding:10px>
-							<img  width="500" height="500" class="img-rounded row" src="{{ URL('/') }}/{{$item->image}}" alt="image">	
+							<img  width="500" height="500" class="img-rounded row" src="{{asset($item->image)}}" alt="image">
 					   </div>
-
-				<a href="{{ url()->previous() }}" class="btn btn-default">Back</a>
 		   </div>
 	</div>
 	@endforeach

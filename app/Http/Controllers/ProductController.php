@@ -1,81 +1,84 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Requests\StoreProduct;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreProduct;
 use Illuminate\Http\Request;
 use App\Product;
 use App\User;
 use DB;
-
-
+use File;
 class ProductController extends Controller
 {
 
-
-    public function showDetails($id)
-    {
-      
-      
-      $item_details = Product::where('id',$id)->get();
-      // return view('viewTasks')->with('tasks',$tasks);
-      return view('productDetails',compact('item_details'));
-      	
-    }
-    
-    public function updateBid($id,Request $request)
-    {
-    	$item = Product::find($id);
-
-    	if($item->highest_price < $request->newPrice)
-    	{
-    		$item->highest_price = $request->newPrice;
-    		$item->save();
-    	}
-    	
-    	return back();
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index() {
+        // if the user is logged in show his products else show all products
+        $products = Product::all();
+        return view('welcome', ["products" => $products]);
     }
 
+    /**
+     * Search for product.
+     * @return like products.
+     */
+    public function search(Request $request) {
 
-    // public function FunctionName($value='')
-    // {
-    // 	$path = $request->file("photo")->store('images/items');
+        $name = $request->name;
+        $products = Product::where("name", 'LIKE', '%'.$name.'%')->get();
 
-    // 	<img src="{{ $item->item_image }}">
+        for ($i = 0; $i < count($products); $i++) {
+            $products[$i]->owner = $products[$i]->user->name;
+            $products[$i]->location = $products[$i]->user->location;
+        }
 
-    // }
-
-    public function display(){
-		$product = DB::table('products')->where('user_id', Auth::id())->get();
-
-        // $user = User::find(Auth::id());
-
-        // $product = $user->products->toArray();
-        // dd($product);
-    	return view('myitem')->with('products', $product);
-    } 
-
-
-
-    public function delete($id){
-       	$product=Product::find($id); 	
-    	$product->delete();
-		return redirect("/myitem");	
-    }      
+        if(count($products) > 0){
+            return response()->json($products, 200);
+        }else{
+            return response()->json("No product found with this name", 401);
+        }
+    }
 
 
+    public function showDetails($id) {
+        $item_details = Product::where('id',$id)->get();
+        return view('productDetails',compact('item_details'));
+    }
 
+    public function updateBid($id,Request $request) {
+        $item = Product::find($id);
+
+        if($item->highest_price < $request->newPrice) {
+            $item->highest_price = $request->newPrice;
+            $item->no_of_bids = ($item->no_of_bids) + 1;
+            $item->save();
+        }
+        return back();
+    }
+
+    public function display() {
+        $product = DB::table('products')->where('user_id', Auth::id())->get();
+
+        return view('myitem')->with('products', $product);
+    }
+
+    public function delete($id) {
+        $product=Product::find($id);
+        $image = $product->image;
+        File::delete(public_path().'/'.$image);
+        $product->delete();
+        return redirect("/myitem");
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-//        $id = Auth::id();
-        // $id = 
+    public function create() {
         return view("addProduct");
     }
 
@@ -87,9 +90,9 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-        
+        // @TODO : validate request
 
-        //@TODO : Error with input in validation
+        // @TODO :Error with input
 
         $user_id = Auth::id();
 
@@ -107,7 +110,7 @@ class ProductController extends Controller
 //                $product->image = $request->file("image")->store("images");
                 $image_name = $request->file('image')->getClientOriginalName();
                 $image_ext = $request->file('image')->getClientOriginalExtension();
-                $image_path = 'images/' . bcrypt($image_name).time().'.'.$image_ext;
+                $image_path = 'images/' . sha1($image_name).time().'.'.$image_ext;
                 $product->image = $image_path;
                 $request->file("image")->move(public_path('images'), $image_path);
             }
